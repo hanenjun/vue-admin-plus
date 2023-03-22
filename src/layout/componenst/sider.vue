@@ -17,7 +17,7 @@
         <div
           class="sider_logo_box"
           :style="{
-            width: appStore.collaps ? '64px' : '240px'
+            width: appStore.collaps ? '64px' : '240px',
           }"
         >
           <img
@@ -45,16 +45,20 @@
   </n-layout-sider>
 </template>
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 import { useAppStore } from "@/store/app";
 import { useRouterStore } from "@/store/router";
-import router from '@/router'
+import router from "@/router";
 let appStore = useAppStore();
 let inverted = ref(false);
 const routerStore = useRouterStore();
 let siderMenus = reactive(routerStore.siderMenus);
-let value = ref(router.currentRoute.value.name)
-function setValue (val: string):void {
-  value.value = val
+let value = ref(router.currentRoute.value.name);
+function setValue(val: string): void {
+  value.value = val;
 }
+
+watch(router.currentRoute, () => {
+  setValue(router.currentRoute.value.name);
+});
 </script>

@@ -7,16 +7,7 @@
     />
   </n-card>
   <h1>Welcome to Your Vue.js + TypeScript App</h1>
-  {{ msg }}
-  <div id="usercenter"></div>
 </template>
 
-,<script lang="ts" setup>
-import { defineProps } from 'vue'
-let msg = defineProps({
-  msg: {
-    default: '',
-    type: String
-  }
-})
-</script>
+,
+<script lang="ts" setup></script>
