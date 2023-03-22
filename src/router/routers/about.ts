@@ -8,10 +8,10 @@ import {
 
 export const aboutRouter:Array<RouteRecordRaw> = [
     {
-        path: '/a',
+        path: '/about',
         name: 'about',
         component: Layout,
-        redirect: '/a/about',
+        redirect: '/about/son',
         meta: {
             name: 'about',
             key: 'about',
@@ -20,21 +20,11 @@ export const aboutRouter:Array<RouteRecordRaw> = [
         children: [
             {
                 meta: {
-                    name: '1about',
-                    key: '1about',
-                    icon: WineIcon
-                },
-                path: '/a/about/',
-                name: '1about',
-                component: () => import('@/views/AboutView.vue')
-            },
-            {
-                meta: {
                     name: 'son',
                     key: 'son',
                     icon: WineIcon
                 },
-                path: '/a/son/',
+                path: '/about/son/',
                 name: 'son',
                 component: () => import('@/views/AboutView.vue')
             }

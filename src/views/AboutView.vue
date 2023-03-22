@@ -2,7 +2,7 @@
   <div class="about">
     <h1>This is an about page</h1>
     <el-button @click="handle1">点击向子应用发送消息</el-button>
-
+    <n-date-picker v-model:value="timestamp" size="small" type="date" />
     <div id="admincontainer"></div>
   </div>
 </template>
@@ -10,10 +10,11 @@
 <script lang="ts" setup>
 // @ is an alias to /src
 import actions from "@/initQiankunState/action";
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, ref } from "vue";
 let mes1 = reactive({
   project_id: "机电平台f",
 });
+let timestamp = ref(null)
 onMounted(() => {
   actions.onGlobalStateChange((state, preState) => {
     console.log(preState, "主应用观察者变更前");

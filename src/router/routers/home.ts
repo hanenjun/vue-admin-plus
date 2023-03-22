@@ -20,22 +20,12 @@ export const homeRouter:Array<RouteRecordRaw> = [
         children: [
           {
             meta: {
-              name: '1home',
-              key: '1home',
+              name: 'home_redirect',
+              key: 'home_redirect',
               icon: WineIcon
             },
             path: '/home',
-            name: '1home',
-            component: () => import('@/views/HomeView.vue')
-          },
-          {
-            meta: {
-              name: '1home1',
-              key: '1home1',
-              icon: WineIcon
-            },
-            path: '/home1',
-            name: '1home1',
+            name: 'home_redirect',
             component: () => import('@/views/HomeView.vue')
           }
         ]

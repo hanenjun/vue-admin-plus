@@ -10,7 +10,7 @@ const son1Config = {
   host: "http://127.0.0.1",
   port: "8033",
   container: "#admincontainer",
-  activeRule: "/a/son/"
+  activeRule: "/about/son/"
 };
 exports.son1Config = son1Config
 const appList = [

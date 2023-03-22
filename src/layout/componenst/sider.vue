@@ -39,6 +39,8 @@
       :collapsed-width="64"
       :collapsed-icon-size="22"
       :options="siderMenus"
+      :value="value"
+      :on-update:value="setValue"
     />
   </n-layout-sider>
 </template>
@@ -46,8 +48,13 @@
 import { ref, reactive } from "vue";
 import { useAppStore } from "@/store/app";
 import { useRouterStore } from "@/store/router";
+import router from '@/router'
 let appStore = useAppStore();
 let inverted = ref(false);
 const routerStore = useRouterStore();
 let siderMenus = reactive(routerStore.siderMenus);
+let value = ref(router.currentRoute.value.name)
+function setValue (val: string):void {
+  value.value = val
+}
 </script>
