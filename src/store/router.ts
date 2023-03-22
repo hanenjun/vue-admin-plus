@@ -4,6 +4,7 @@ import { NIcon } from "naive-ui";
 import { h, Component } from "vue";
 import { RouterLink } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
+import { setGlobalState } from "@/initQiankunState/action";
 
 function renderIcon(icon: Component): Component {
     return () => h(NIcon, null, { default: () => h(icon) });
@@ -15,6 +16,7 @@ export interface Routermenu {
     icon: Component;
     children?: Array<Routermenu>;
     name?: string;
+    hidden?: boolean;
 }
 
 export interface CustomRouteRecordRaw {
@@ -25,7 +27,7 @@ export interface CustomRouteRecordRaw {
 
 const getRouterMenus = (routes: Array<CustomRouteRecordRaw>): Array<Routermenu> => {
     if (routes instanceof Array) {
-        return routes.map((router: CustomRouteRecordRaw) => {
+        return routes.filter(item => !item.meta.hidden).map((router: CustomRouteRecordRaw) => {
             if (router.children && router.children.length) {
                 return {
                     label: (): Component => {
@@ -80,4 +82,10 @@ export const useRouterStore = defineStore('router', {
             return getRouterMenus(state.routes as unknown as Array<CustomRouteRecordRaw>)
         }
     }
+})
+
+setTimeout(()=>{
+    useRouterStore().$subscribe(()=>{
+        setGlobalState()
+    })
 })

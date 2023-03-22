@@ -1,14 +1,18 @@
 import { defineStore } from 'pinia'
+import { setGlobalState } from "@/initQiankunState/action";
 
 export interface App {
-    collaps: boolean
+    collaps: boolean;
+    loading: boolean;
 }
+
 
 
 export const useAppStore = defineStore('app', {
     state: (): App => {
         return {
-            collaps: true
+            collaps: true,
+            loading: false
         }
     },
     actions: {
@@ -16,4 +20,10 @@ export const useAppStore = defineStore('app', {
             this.collaps = !this.collaps
         }
     },
+})
+
+setTimeout(()=>{
+    useAppStore().$subscribe(()=>{
+        setGlobalState()
+    })
 })

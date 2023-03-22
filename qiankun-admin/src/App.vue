@@ -1,45 +1,20 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  {{ data }}
-  <router-view/>
+  <el-button @click="handle1">点我向父应用发送数据</el-button>
 </template>
-<script>
-import axios from "axios";
-export default {
-  data() {
-    return {
-      data: ''
-    }
-  },
-  created() {
-    axios.get('http://localhost:3000').then(res=>{
-      this.data = res.data.message
-    })
-  }
+<script lang="ts" setup>
+import actions from "@/action";
+import { onMounted,  reactive } from "vue";
+let router = reactive({})
+// 在mounted中
+onMounted(() => {
+  actions.onGlobalStateChange((state) => {
+    console.log(state, "子应用检测数据");
+    // state.router.back()
+    router = state.router
+  }, true); // onGlobalStateChange 第二个参数设置为true，会立即触发一次观察者函数
+});
+function handle1() {
+  router.back()
+  actions.setGlobalState({ project_id: "机电子应用s" });
 }
 </script>
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

@@ -24,7 +24,7 @@ export const aboutRouter:Array<RouteRecordRaw> = [
                     key: '1about',
                     icon: WineIcon
                 },
-                path: '/a/about',
+                path: '/a/about/',
                 name: '1about',
                 component: () => import('@/views/AboutView.vue')
             },
@@ -34,10 +34,10 @@ export const aboutRouter:Array<RouteRecordRaw> = [
                     key: 'son',
                     icon: WineIcon
                 },
-                path: '/a/son',
+                path: '/a/son/',
                 name: 'son',
                 component: () => import('@/views/AboutView.vue')
-            },
+            }
         ]
     }
 ]
