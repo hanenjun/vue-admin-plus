@@ -10,7 +10,7 @@ const son1Config = {
   host: "http://127.0.0.1",
   port: "8033",
   container: "#admincontainer",
-  activeRule: "/a/son",
+  activeRule: "/a/son"
 };
 exports.son1Config = son1Config
 const appList = [
@@ -19,6 +19,7 @@ const appList = [
     entry: `${son1Config.host}:${son1Config.port}`,
     container: son1Config.container,
     activeRule: son1Config.activeRule,
+    parentRouterData: son1Config.parentRouterData
   },
 ];
 exports.appList = appList

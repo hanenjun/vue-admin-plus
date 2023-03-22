@@ -37,7 +37,7 @@ export const aboutRouter:Array<RouteRecordRaw> = [
                 path: '/a/son',
                 name: 'son',
                 component: () => import('@/views/AboutView.vue')
-            }
+            },
         ]
-    },
+    }
 ]

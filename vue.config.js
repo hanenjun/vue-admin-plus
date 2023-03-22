@@ -9,6 +9,7 @@ module.exports = defineConfig({
       patterns: [],
     },
   },
+  publicPath: '/',
   devServer: {
     proxy: {},
     headers: {

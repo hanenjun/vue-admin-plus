@@ -1,10 +1,8 @@
 const { defineConfig } = require("@vue/cli-service");
 const config = require('../config/app')
-console.log(config)
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
-  publicPath: `/`,
   configureWebpack: {
     output: {
       library: config.son1Config.name,
@@ -12,6 +10,7 @@ module.exports = defineConfig({
       chunkLoadingGlobal: `webpackJsonp_${config.son1Config.name}`,
     },
   },
+  publicPath: '/',
   devServer: {
     headers: {
       'Access-Control-Allow-Origin': '*',
