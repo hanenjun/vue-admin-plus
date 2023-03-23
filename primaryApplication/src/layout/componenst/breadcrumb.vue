@@ -8,12 +8,13 @@
 <script lang="ts" setup>
 import { reactive, watch } from "vue";
 import router from "@/router";
-let currentRoute = reactive(router.currentRoute._rawValue.matched);
+import { Router } from 'vue-router'
+let currentRoute = reactive((router as Router).currentRoute._rawValue.matched);
 watch(
   () => router.currentRoute.value.path,
   () => {
     currentRoute.splice(0, currentRoute.length);
-    router.currentRoute._rawValue.matched.forEach((item) => {
+    (router as Router).currentRoute._rawValue.matched.forEach((item:string):void => {
       currentRoute.push(item);
     });
   }

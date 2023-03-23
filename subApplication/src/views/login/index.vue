@@ -4,9 +4,9 @@
     <div class="view-account-container">
       <div class="view-account-top">
         <div class="view-account-top-logo">
-          <img src="@/assets/images/logo.png" alt="" />
+          <img :src="webConfig.primaryApplicationConfig.logo" alt="" />
         </div>
-        <div class="view-account-top-desc">vue-admin-plus</div>
+        <div class="view-account-top-desc">{{ webConfig.primaryApplicationConfig.title }}</div>
       </div>
       <div class="view-account-form">
         <n-form ref="formRef" label-placement="left" size="large">
@@ -58,6 +58,8 @@ import {
   LogoGithub,
   LogoFacebook,
 } from "@vicons/ionicons5";
+import Config from '../../../../applicationConfig/application'
+const webConfig = reactive(Config)
 
 function loginApi() {
   return new Promise((rev, rej) => {

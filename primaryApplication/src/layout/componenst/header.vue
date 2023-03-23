@@ -45,8 +45,6 @@ import { DarkTheme20Filled as DarkThemeFilled } from "@vicons/fluent";
 import { IconConfigProvider, Icon } from "@vicons/utils"; // vue3
 import { renderIcon } from '@/utils/icon'
 let appStore = useAppStore();
-
-
 let options = reactive([
   {
     label: "用户资料",

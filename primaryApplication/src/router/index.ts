@@ -1,19 +1,19 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw, Router } from 'vue-router'
 
 import { loginRouter } from "./routers/login";
 import { homeRouter } from "./routers/home";
 
 import { useUserStore } from '@/store/user'
 
-const qiankunConfig = require('../../config/app.js')
+let appConfig: any = require('../../../applicationConfig/application')
 
 export const routes: Array<RouteRecordRaw> = [
   ...homeRouter,
   ...loginRouter
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router: Router = createRouter({
+  history: createWebHistory(),
   routes
 })
 

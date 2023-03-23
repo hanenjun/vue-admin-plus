@@ -2,13 +2,8 @@ import { initGlobalState } from 'qiankun'
 import store from '@/store/pinia';
 import router from '@/router';
 const initState = {
-    store: {
-        app: {
-            loading: true
-        },
-        ...store,
-    },
-    router:router
+    store,
+    router
 }
 const actions = initGlobalState(initState)
 actions.onGlobalStateChange((state, preState) => {
@@ -19,8 +14,8 @@ export default actions
 
 export const setGlobalState = () => {
     actions.setGlobalState({
-        store: {...store.state.value},
-        router:router
+        store,
+        router
     });
 }
 

@@ -1,4 +1,4 @@
-import Login from '@/views/login.vue'
+import Login from '@/views/LoginView.vue'
 import { RouteRecordRaw } from 'vue-router'
 
 export const loginRouter:Array<RouteRecordRaw> = [

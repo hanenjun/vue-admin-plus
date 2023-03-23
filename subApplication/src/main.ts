@@ -17,7 +17,7 @@ function render(props?: any){
   }
   router = createRouter({
     routes,
-    history: (window as any).__POWERED_BY_QIANKUN__ ? createWebHashHistory('/login') : createWebHistory(),
+    history: (window as any).__POWERED_BY_QIANKUN__ ? createWebHistory('/') : createWebHistory(),
   })
   instance = createApp(App)
   instance.use(store).use(router).use(naive).mount(props.container ? (props.container as any).querySelector('#login-app') : '#login-app')
