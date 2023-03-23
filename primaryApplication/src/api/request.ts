@@ -6,7 +6,7 @@ const instance = axios.create({
 }as CreateAxiosDefaults)
 
 type Response<T = any> = {
-  msg: string
+  code: number
   result: T
 }
 

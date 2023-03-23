@@ -9,9 +9,9 @@
         <div class="view-account-top-desc">{{ webConfig.primaryApplicationConfig.title }}</div>
       </div>
       <div class="view-account-form">
-        <n-form ref="formRef" label-placement="left" size="large">
+        <n-form :model="userinfo" :rules="rules" ref="formRef" label-placement="left" size="large">
           <n-form-item path="username">
-            <n-input placeholder="请输入用户名">
+            <n-input :disabled="loading" placeholder="请输入用户名" v-model:value="userinfo.username">
               <template #prefix>
                 <n-icon size="18" color="#808695">
                   <PersonOutline />
@@ -20,11 +20,7 @@
             </n-input>
           </n-form-item>
           <n-form-item path="password">
-            <n-input
-              type="password"
-              showPasswordOn="click"
-              placeholder="请输入密码"
-            >
+            <n-input :disabled="loading" type="password" showPasswordOn="click" placeholder="请输入密码" v-model:value="userinfo.password">
               <template #prefix>
                 <n-icon size="18" color="#808695">
                   <LockClosedOutline />
@@ -35,12 +31,12 @@
           <n-form-item class="default-color">
             <div class="flex justify-between">
               <div class="flex-initial">
-                <n-checkbox>自动登录</n-checkbox>
+                <n-checkbox :disabled="loading" v-model:value="userinfo.autoLogin">自动登录</n-checkbox>
               </div>
             </div>
           </n-form-item>
           <n-form-item>
-            <n-button type="primary" size="large" @click="login" block>
+            <n-button :loading="loading" type="primary" size="large" @click="login" block>
               登录
             </n-button>
           </n-form-item>
@@ -51,7 +47,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import {
   PersonOutline,
   LockClosedOutline,
@@ -59,28 +55,70 @@ import {
   LogoFacebook,
 } from "@vicons/ionicons5";
 import Config from '../../../../applicationConfig/application'
-const webConfig = reactive(Config)
-
-function loginApi() {
-  return new Promise((rev, rej) => {
-    setTimeout(() => {
-      rev({
-        code: 0,
-        token: 324324234
-      });
-    }, 1000);
-  });
+import {
+  login as loginApi, USER_LOGIN,
+  Response, RequestUserlogin
+} from "@/api/user";
+import { FormInst, useNotification, NotificationType } from 'naive-ui'
+let loading = ref(false)
+let Notification = useNotification()
+let notification = (type: NotificationType, msg: string, meta: string) => {
+  console.log(Notification)
+  Notification[type]({
+    content: msg,
+    meta: meta,
+    duration: 2500,
+    keepAliveOnHover: true
+  })
 }
-function login() {
-  loginApi().then((res) => {
-    if (res.code === 0) {
-      window.history.pushState(
-        null,
-        "",
-        `/?token=${(res as any).token}`
-      );
+const webConfig = reactive(Config)
+const formRef = ref<FormInst | null>(null)
+
+let userinfo = reactive({
+  username: '',
+  password: '',
+  autoLogin: false
+})
+const rules = reactive({
+  username: {
+    required: true,
+    message: '请输入姓名',
+    trigger: 'blur'
+  },
+  password: {
+    required: true,
+    message: '请输入密码',
+    trigger: 'blur'
+  }
+})
+
+function login(e: MouseEvent) {
+  e.preventDefault()
+  formRef.value?.validate((errors) => {
+    if (!errors) {
+      loading.value = true
+      loginApi(userinfo).then((res: Response<USER_LOGIN>): void => {
+        if (res.code === 0) {
+          localStorage.setItem('USER_TOKEN', res.result.token)
+          notification('success', '登入成功', '😄')
+          loading.value = false
+          setTimeout(()=>{
+            window.history.pushState(
+            null,
+            "",
+            `/`
+          );
+          },1000)
+        } else {
+          loading.value = false
+          notification('error', '登入失败', '😭')
+        }
+      });
+    } else {
+      console.log(errors)
     }
-  });
+  })
+
 }
 </script>
 

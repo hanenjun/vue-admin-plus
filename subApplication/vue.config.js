@@ -1,5 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 const config = require("../applicationConfig/application");
+const dev = process.env.NODE_ENV === 'development'
+
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
@@ -10,10 +12,21 @@ module.exports = defineConfig({
       chunkLoadingGlobal: `webpackJsonp_${config.loginConfig.name}`,
     },
   },
-  publicPath: '/',
+  publicPath: `${config.loginConfig.host}:${config.loginConfig.port}`,
   devServer: {
     headers: {
       'Access-Control-Allow-Origin': '*',
+    },
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:3000",
+        pathRewrite: {
+          "^/api": "",
+        },
+        changeOrigin: true,
+        ws: true,
+        secure: false,
+      },
     },
     port: config.loginConfig.port,
     open: true,

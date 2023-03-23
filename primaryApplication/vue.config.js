@@ -11,7 +11,17 @@ module.exports = defineConfig({
   },
   publicPath: "/",
   devServer: {
-    proxy: {},
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:3000",
+        pathRewrite: {
+          "^/api": "",
+        },
+        changeOrigin: true,
+        ws: true,
+        secure: false,
+      },
+    },
     headers: {
       "Access-Control-Allow-Origin": "*", // 设置允许跨域请求，否则会因为在其他端口号获取资源报错
     },
